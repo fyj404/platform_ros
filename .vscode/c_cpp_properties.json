@@ -1,0 +1,29 @@
+{
+  "configurations": [
+    {
+      "browse": {
+        "databaseFilename": "",
+        "limitSymbolsToIncludedHeaders": true
+      },
+      "includePath": [
+        "/home/f404/catkin_ws/devel/include/**",
+        "/opt/ros/melodic/include/**",
+        "/home/f404/catkin_ws/src/A-LOAM/include/**",
+        "/home/f404/catkin_ws/src/VINS-Mono/camera_model/include/**",
+        "/home/f404/catkin_ws/src/VINS-Fusion/camera_models/include/**",
+        "/home/f404/catkin_ws/src/UE/controller_ros_ue/include/**",
+        "/home/f404/catkin_ws/src/cv_bridge/include/**",
+        "/home/f404/catkin_ws/src/SVO/fast/include/**",
+        "/home/f404/catkin_ws/src/LARVIO/ros_wrapper/src/larvio/include/**",
+        "/home/f404/catkin_ws/src/SVO/rpg_svo/svo/include/**",
+        "/home/f404/catkin_ws/src/SVO/rpg_svo/svo_ros/include/**",
+        "/home/f404/catkin_ws/src/ueread/include/**",
+        "/home/f404/catkin_ws/src/SVO/rpg_vikit/vikit_common/include/**",
+        "/home/f404/catkin_ws/src/SVO/rpg_vikit/vikit_ros/include/**",
+        "/usr/include/**"
+      ],
+      "name": "ROS"
+    }
+  ],
+  "version": 4
+}

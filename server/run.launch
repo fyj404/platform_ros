@@ -1,0 +1,42 @@
+<launch>
+
+    <arg name="ip"     default="192.168.3.1" />
+     <param name="ip"      type="str" value="$(arg ip)" />
+
+    <group >
+        <node name="client1" pkg="client" type="client1" output="screen" required="true">
+           
+        </node>
+        <node name="client2" pkg="client" type="client2" output="screen" required="true">
+           
+        </node>
+        <node name="client3" pkg="client" type="client3" output="screen" required="true">
+            
+        </node>
+    </group>
+	<group >
+        <node name="server" pkg="server" type="server" output="screen" required="true">
+           
+        </node>
+    </group>
+    <group >
+        <node name="image_decode1" pkg="image_decode" type="image_decode1" output="screen" required="true">
+
+        </node>
+        <node name="image_decode2" pkg="image_decode" type="image_decode2" output="screen" required="true">
+            
+        </node>
+        <node name="image_decode3" pkg="image_decode" type="image_decode3" output="screen" required="true">
+            
+        </node>
+    </group>
+    <group >
+        <node name="controller_ros_ue" pkg="controller_ros_ue" type="controller_ros_ue" output="screen" required="true">
+            
+        </node>
+    </group>
+     <group >
+        <node name="test_ue" pkg="test_ue" type="test_ue" output="screen" required="true">
+        </node>
+    </group>
+</launch>
