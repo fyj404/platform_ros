@@ -41,9 +41,9 @@ int main(int argc, char** argv)
     sockaddr_in localAddress;
     memset(&localAddress, 0, sizeof(localAddress));
     localAddress.sin_family = AF_INET;        // IPv4
-    std::string ips="10.63.79.224";
-    nodeHandle.param <std::string > ("ip",ips,"10.63.79.224");
-    localAddress.sin_addr.s_addr = inet_addr("10.63.79.224");
+    std::string ips="192.168.159.1";
+    nodeHandle.param <std::string > ("ip",ips,"192.168.159.1");
+    localAddress.sin_addr.s_addr = inet_addr(ips.c_str());
     localAddress.sin_port = htons(9999);
     //------------- socket -------------
 

@@ -40,10 +40,10 @@ ros::Time ct[10];
 double deltaTimeOme=160;
 double deltaTimeVel=1.00/0.00520;
 unsigned int seed = 0;
-double vrw=0.01;
-double vrn=0.001;
-double arw=0.0002;
-double arn=0.001;
+double vrw=0.002;
+double vrn=1.2e-5;
+double arw=8.7e-5;
+double arn=9.9e-7;
 
 //double M_PI=3.1415926;
 double GuassianKernel(double mu, double sigma)
@@ -81,7 +81,7 @@ void euler_sol_idx(const geometry_msgs::PointStamped::ConstPtr &msg,int idx)
     for (int i = 0; i < 3; i++)delta[i] = (nowdata[i] - lastEuler[idx][i])*deltaTimeOme;
   }
   for (int i = 0; i < 3; i++)lastEuler[idx][i] = nowdata[i];
-  double sqrt_dt=sqrt(1.00/deltaTimeOme);
+  double sqrt_dt=sqrt(std::max(1.00/deltaTimeOme,0.005));
   double sigma_arw=arw/sqrt_dt;
   for(int i=0;i<3;i++){
     delta[i]+=getNumber(1)*sigma_arw+gyr_bias[idx][i];
@@ -90,6 +90,7 @@ void euler_sol_idx(const geometry_msgs::PointStamped::ConstPtr &msg,int idx)
   for(int i=0;i<3;i++){
     gyr_bias[idx][i]+=getNumber(1)*sigma_bias;
   }
+  ROS_INFO("gyr bias: %f, %f, %f", gyr_bias[idx][0], gyr_bias[idx][1], gyr_bias[idx][2]);
   geometry_msgs::Vector3 tmp;
   tmp.x = delta[0];
   tmp.y = delta[1];
@@ -160,7 +161,7 @@ void pos_sol_idx(const geometry_msgs::PointStamped::ConstPtr &msg,int idx)
     ct[idx] = msg->header.stamp;
   }
   double delta[3] = {msg->point.x, msg->point.y, msg->point.z};
-  double sqrt_dt=sqrt(1.00/deltaTimeOme);
+  double sqrt_dt=sqrt(std::max(1.00/deltaTimeOme,0.005));
   double sigma_vrw=vrw/sqrt_dt;
   for(int i=0;i<3;i++){
     delta[i]+=getNumber(1)*sigma_vrw+acc_bias[idx][i];
@@ -169,6 +170,7 @@ void pos_sol_idx(const geometry_msgs::PointStamped::ConstPtr &msg,int idx)
   for(int i=0;i<3;i++){
     acc_bias[idx][i]+=getNumber(1)*sigma_bias;
   }
+  ROS_INFO("acc bias: %f, %f, %f", acc_bias[idx][0], acc_bias[idx][1],acc_bias[idx][2]);
   geometry_msgs::Vector3 linear_acceleration;
   linear_acceleration.x=delta[0];
   linear_acceleration.y=delta[1];
@@ -178,17 +180,10 @@ void pos_sol_idx(const geometry_msgs::PointStamped::ConstPtr &msg,int idx)
 int main(int argc, char **argv)
 {
   srand((unsigned int)time(NULL));
-  ros::init(argc, argv, "ueReadNode");
+  ros::init(argc, argv, "ue_read_node");
   
   ros::NodeHandle nh;
   for(int i=0;i<9;i++)ct[i]=ros::Time::now();
-  //imu1 = nh.advertise<geometry_msgs::Vector3>("imu1", deltaTimeOme);
-  //imu2 = nh.advertise<geometry_msgs::Vector3>("imu2", deltaTimeOme);
-  //imu3 = nh.advertise<geometry_msgs::Vector3>("imu3", deltaTimeOme);
-  // imu4 = nh.advertise<geometry_msgs::Vector3>("imu4", deltaTimeOme);
-  //imu5 = nh.advertise<geometry_msgs::Vector3>("imu5", deltaTimeOme);
-  //imu6 = nh.advertise<geometry_msgs::Vector3>("imu6", deltaTimeOme);
-  
   for(int i=1;i<=3;i++){
     char s[30];
     sprintf(s,"euler_angle404_%d",i);

@@ -32,7 +32,7 @@ void pos_sol_1(const geometry_msgs::PointStamped::ConstPtr &msg)
 int main(int argc, char **argv)
 {
   srand((unsigned int)time(NULL));
-  ros::init(argc, argv, "ueCheckNode");
+  ros::init(argc, argv, "ue_check_node");
   
   ros::NodeHandle nh;
 

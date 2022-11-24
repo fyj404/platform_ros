@@ -17,7 +17,7 @@ int main(int argc, char** argv)
     double rate = 500.0;
     ros::Rate loopRate(rate);
     std::string ips;
-    nh.param<std::string>("ip",ips,"10.63.79.224");
+    nh.param<std::string>("ip",ips,"192.168.159.1");
     ClientNode2 client(nh, ips.c_str(), 1334);
     // struct sockaddr_in serv_addr;
     // memset(&serv_addr, 0, sizeof(serv_addr));
